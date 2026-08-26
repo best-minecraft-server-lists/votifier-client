@@ -1,4 +1,4 @@
-# votifier-client — Minecraft Votifier Client and Test Server (`mc-votifier`)
+# votifier-client - Minecraft Votifier Client and Test Server (`mc-votifier`)
 
 [![CI](https://github.com/best-minecraft-server-lists/votifier-client/actions/workflows/ci.yml/badge.svg)](https://github.com/best-minecraft-server-lists/votifier-client/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/mc-votifier.svg)](https://www.npmjs.com/package/mc-votifier)
@@ -188,8 +188,8 @@ Send options:
 | `serviceName` | `string` | required | The voting site's name, as the server will log it. |
 | `address` | `string` | `"127.0.0.1"` | Voter IP recorded inside the vote. |
 | `timestamp` | `number` | `Date.now()` | Vote timestamp in milliseconds. |
-| `token` | `string` | — | v2 token. Required for v2. |
-| `publicKey` | `string` | — | v1 RSA public key, base64 or PEM. Required for v1. |
+| `token` | `string` | - | v2 token. Required for v2. |
+| `publicKey` | `string` | - | v1 RSA public key, base64 or PEM. Required for v1. |
 | `protocol` | `"v1" \| "v2" \| "auto"` | `"auto"` | Which protocol to speak. |
 | `timeout` | `number` | `5000` | Milliseconds before giving up. |
 
@@ -306,18 +306,18 @@ Encryption is unaffected. `crypto.publicEncrypt` with PKCS#1 padding works every
 
 Built and maintained by [Best Minecraft Server Lists](https://bestcobblemonservers.net). Every ranking below is ordered on player counts taken from a direct server ping, never on numbers a server reports about itself.
 
-- [Best Cobblemon servers](https://bestcobblemonservers.net) — Cobblemon servers ranked on live player counts, with a full Pokédex and free server tools
-- [Best Minecraft Prison servers](https://bestprisonservers.com) — the top 10 prison servers, ranked weekly on counts pinged directly from each server
-- [Best Minecraft Skyblock servers](https://bestskyblockservers.net) — the top 10 skyblock servers, ranked weekly, with 24-hour highs and 7-day averages on every entry
-- [Best Minecraft SMP servers](https://bestsmpservers.com) — the top 10 SMP servers, ranked weekly, showing Java and Bedrock support and the versions each accepts
-- [Best Minecraft Survival servers](https://bestsurvivalservers.com) — the top 10 survival servers, ranked weekly, each showing when its count was last verified
-- [Free rankings JSON API](https://bestprisonservers.com/api/rankings.json) — every ranking above as JSON, CC BY 4.0, no key and no sign-up
+- [Best Cobblemon servers](https://bestcobblemonservers.net) - The Best Cobblemon Servers, Top 10, Rated by the players
+- [Best Minecraft Prison servers](https://bestprisonservers.com) - The Best Prison Servers, Top 10, Rated by the players
+- [Best Minecraft Skyblock servers](https://bestskyblockservers.net) - The Best Skyblock Servers, Top 10, Rated by the players
+- [Best Minecraft SMP servers](https://bestsmpservers.com) - The Best SMP Servers, Top 10, Rated by the players
+- [Best Minecraft Survival servers](https://bestsurvivalservers.com) - The Best Survival Servers, Top 10, Rated by the players
+- [Free rankings JSON API](https://bestprisonservers.com/api/rankings.json) - Every ranking above as JSON, CC BY 4.0, no key and no sign-up
 
 Sister libraries:
 
-- [mc-status](https://github.com/best-minecraft-server-lists/mc-status) — ping a Java or Bedrock server for players, version and MOTD
-- [mc-motd](https://github.com/best-minecraft-server-lists/motd-parser) — render a MOTD to ANSI, HTML or plain text
-- [mc-rankings-client](https://github.com/best-minecraft-server-lists/mc-rankings-client) — typed client for the rankings feeds above
+- [mc-status](https://github.com/best-minecraft-server-lists/mc-status) - ping a Java or Bedrock server for players, version and MOTD
+- [mc-motd](https://github.com/best-minecraft-server-lists/motd-parser) - render a MOTD to ANSI, HTML or plain text
+- [mc-rankings-client](https://github.com/best-minecraft-server-lists/mc-rankings-client) - typed client for the rankings feeds above
 
 ## Contributing
 

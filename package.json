@@ -1,0 +1,55 @@
+{
+  "name": "mc-votifier",
+  "version": "1.0.0",
+  "description": "Send and receive Minecraft Votifier votes from Node. Supports Votifier v1 (RSA) and v2 (token/HMAC), with a built-in test receiver for debugging a server's vote setup. Zero dependencies.",
+  "keywords": [
+    "minecraft",
+    "votifier",
+    "nuvotifier",
+    "minecraft-server",
+    "voting",
+    "vote",
+    "server-list",
+    "rsa",
+    "hmac",
+    "minecraft-api"
+  ],
+  "homepage": "https://github.com/best-minecraft-server-lists/votifier-client#readme",
+  "bugs": "https://github.com/best-minecraft-server-lists/votifier-client/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/best-minecraft-server-lists/votifier-client.git"
+  },
+  "license": "MIT",
+  "author": "Best Minecraft Server Lists",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "mc-votifier": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && node --test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

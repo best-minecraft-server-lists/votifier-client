@@ -218,7 +218,7 @@ Exported so you can build your own tooling or write tests against captured traff
 | `buildV1Payload(vote)` | The newline-delimited v1 payload string. |
 | `parseV1Payload(text)` | Parse that string back into a vote. |
 | `encryptV1(vote, publicKey)` | Produce the 256-byte RSA block. |
-| `decryptV1(block, privateKey)` | Decrypt one back into a vote. |
+| `decryptV1(block, privateKey, options?)` | Decrypt one back into a vote. |
 | `buildV2Message(vote, token, challenge)` | Full framed v2 message including magic and length. |
 | `readV2Message(buffer, token)` | Parse and verify a v2 frame. Returns `null` while the frame is incomplete. |
 | `isV2Message(buffer)` | Check for the `0x733a` magic. |
@@ -286,9 +286,18 @@ The server answers with `{"status":"ok"}` or `{"status":"error","cause":"...","e
 | v1 vote sends fine but nothing happens | v1 servers never reply. Run `mc-votifier listen` on your own machine to confirm the list is really sending. |
 | `INVALID_KEY` or a decrypt error | The `public.key` file should be bare base64 with no PEM header and no line breaks. `pemToVotifier()` will strip them for you. |
 
+### A note on Node and PKCS#1 v1.5
+
+Votifier v1 mandates RSA with PKCS#1 v1.5 padding. Node's support for that in `crypto.privateDecrypt` has moved around: it was disabled in 18.19.1, 20.11.1 and 21.6.2 in response to [CVE-2023-46809](https://nvd.nist.gov/vuln/detail/CVE-2023-46809) (the Marvin attack), then restored in later releases once implicit rejection was added.
+
+`decryptV1` therefore tries the native path first and falls back to `RSA_NO_PADDING` with its own PKCS#1 unpadding on the Node versions that refuse. This is transparent, and the receiver works the same on every supported Node version. Pass `{ manualUnpad: true }` to force the fallback, which is what the test suite does so both paths stay covered.
+
+Encryption is unaffected. `crypto.publicEncrypt` with PKCS#1 padding works everywhere, so sending v1 votes never hits this.
+
 ## Security notes
 
 - Treat the v2 token like a password. Anyone with it can credit votes to any player.
+- Votifier v1 is PKCS#1 v1.5 by specification, which is the padding scheme the Marvin attack targets. That is a property of the protocol, not of this library. Prefer v2, which uses HMAC and is not affected.
 - Anyone with the v1 public key can forge votes. Prefer v2 wherever the server supports it.
 - The receiver validates signatures with a timing-safe comparison and rejects mismatched challenges.
 - This library does not rate limit. If you expose a receiver publicly, put your own limits in front of it.

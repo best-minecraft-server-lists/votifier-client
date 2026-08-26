@@ -49,6 +49,20 @@ test("a v1 block is exactly 256 bytes and decrypts back to the vote", () => {
   assert.deepEqual(decryptV1(block, keys.votifierPrivateKey), vote);
 });
 
+test("the manual pkcs1 unpad path agrees with the native one", () => {
+  const vote = { serviceName: "svc", username: "Player", address: "203.0.113.9", timestamp: 1700000000000 };
+  const block = encryptV1(vote, keys.votifierPublicKey);
+
+  assert.deepEqual(decryptV1(block, keys.votifierPrivateKey, { manualUnpad: true }), vote);
+});
+
+test("the manual unpad path rejects a block that is not valid pkcs1 type 2", () => {
+  assert.throws(
+    () => decryptV1(Buffer.alloc(256), keys.votifierPrivateKey, { manualUnpad: true }),
+    /PKCS#1/,
+  );
+});
+
 test("a v1 payload that cannot fit in one RSA block is rejected", () => {
   assert.throws(
     () => encryptV1({ serviceName: "s".repeat(300), username: "u", address: "1.2.3.4", timestamp: 1 }, keys.votifierPublicKey),

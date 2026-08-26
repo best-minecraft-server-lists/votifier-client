@@ -42,14 +42,49 @@ export function encryptV1(vote: Vote, publicKey: string): Buffer {
   );
 }
 
-export function decryptV1(block: Buffer, privateKey: string): Vote {
-  const decrypted = crypto.privateDecrypt(
-    {
-      key: privateKeyToPem(privateKey),
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    },
-    block,
-  );
+function unpadPkcs1Type2(raw: Buffer): Buffer {
+  let offset = raw[0] === 0x00 ? 1 : 0;
+
+  if (raw[offset] !== 0x02) {
+    throw new VotifierError("DECRYPT_FAILED", "Decrypted block is not PKCS#1 v1.5 type 2");
+  }
+  offset += 1;
+
+  const paddingStart = offset;
+  while (offset < raw.length && raw[offset] !== 0x00) {
+    offset += 1;
+  }
+
+  if (offset >= raw.length || offset - paddingStart < 8) {
+    throw new VotifierError("DECRYPT_FAILED", "Decrypted block has malformed PKCS#1 padding");
+  }
+
+  return raw.subarray(offset + 1);
+}
+
+export interface DecryptV1Options {
+  manualUnpad?: boolean;
+}
+
+export function decryptV1(block: Buffer, privateKey: string, options: DecryptV1Options = {}): Vote {
+  const key = privateKeyToPem(privateKey);
+
+  const manual = (): Buffer =>
+    unpadPkcs1Type2(crypto.privateDecrypt({ key, padding: crypto.constants.RSA_NO_PADDING }, block));
+
+  let decrypted: Buffer;
+  if (options.manualUnpad) {
+    decrypted = manual();
+  } else {
+    try {
+      decrypted = crypto.privateDecrypt({ key, padding: crypto.constants.RSA_PKCS1_PADDING }, block);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ERR_INVALID_ARG_VALUE") {
+        throw new VotifierError("DECRYPT_FAILED", (error as Error).message);
+      }
+      decrypted = manual();
+    }
+  }
 
   return parseV1Payload(decrypted.toString("utf8"));
 }

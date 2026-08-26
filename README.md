@@ -304,14 +304,14 @@ Encryption is unaffected. `crypto.publicEncrypt` with PKCS#1 padding works every
 
 ## Related
 
-Built and maintained by [Best Minecraft Server Lists](https://bestcobblemonservers.net).
+Built and maintained by [Best Minecraft Server Lists](https://bestcobblemonservers.net). Every ranking below is ordered on player counts taken from a direct server ping, never on numbers a server reports about itself.
 
-- [Best Cobblemon servers](https://bestcobblemonservers.net) — live-pinged rankings, full Pokédex and free tools
-- [Best Minecraft Prison servers](https://bestprisonservers.com) — top 10, ranked weekly on live player counts
-- [Best Minecraft Skyblock servers](https://bestskyblockservers.net) — top 10, ranked weekly
-- [Best Minecraft SMP servers](https://bestsmpservers.com) — top 10, ranked weekly
-- [Best Minecraft Survival servers](https://bestsurvivalservers.com) — top 10, ranked weekly
-- [Free rankings JSON API](https://bestprisonservers.com/api/rankings.json) — CC BY 4.0, no key required
+- [Best Cobblemon servers](https://bestcobblemonservers.net) — Cobblemon servers ranked on live player counts, with a full Pokédex and free server tools
+- [Best Minecraft Prison servers](https://bestprisonservers.com) — the top 10 prison servers, ranked weekly on counts pinged directly from each server
+- [Best Minecraft Skyblock servers](https://bestskyblockservers.net) — the top 10 skyblock servers, ranked weekly, with 24-hour highs and 7-day averages on every entry
+- [Best Minecraft SMP servers](https://bestsmpservers.com) — the top 10 SMP servers, ranked weekly, showing Java and Bedrock support and the versions each accepts
+- [Best Minecraft Survival servers](https://bestsurvivalservers.com) — the top 10 survival servers, ranked weekly, each showing when its count was last verified
+- [Free rankings JSON API](https://bestprisonservers.com/api/rankings.json) — every ranking above as JSON, CC BY 4.0, no key and no sign-up
 
 Sister libraries:
 
